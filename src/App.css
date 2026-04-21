@@ -1,0 +1,204 @@
+/* --- Global Resets --- */
+:root {
+  --sidebar-width: 260px;
+  --primary: #2563eb;
+  --bg-main: #f8fafc;
+  --bg-card: #ffffff;
+  --text-dark: #1e293b;
+  --text-light: #64748b;
+  --success: #10b981;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; font-family: 'Inter', sans-serif; background: var(--bg-main); color: var(--text-dark); }
+
+/* --- Layout Structure --- */
+.dashboard-wrapper { display: flex; min-height: 100vh; }
+
+.sidebar {
+  position: fixed;
+  left: 0;    /* <--- Force to the very left edge */
+  top: 0;     /* <--- Force to the very top edge */
+  width: var(--sidebar-width);
+  height: 100vh;
+  background: #0f172a;
+  margin: 0;  /* <--- Ensure no margin */
+  padding: 20px; 
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+}
+
+.main-content {
+  margin-left: var(--sidebar-width);
+  flex: 1;
+  padding: 2rem;
+  width: calc(100% - var(--sidebar-width));
+}
+
+/* --- Sidebar Styling --- */
+.sidebar-logo h2 { color: #38bdf8; margin-bottom: 2rem; font-size: 1.5rem; letter-spacing: -1px; }
+.sidebar-links { flex: 1; }
+.sidebar-links a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #94a3b8;
+  text-decoration: none;
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+  transition: 0.2s;
+}
+.sidebar-links a:hover { background: #1e293b; color: white; }
+.sidebar-links a.active { background: var(--primary); color: white; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3); }
+
+/* --- Modern Cards --- */
+.glass-card {
+  background: var(--bg-card);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+  border: 1px solid #e2e8f0;
+}
+
+/* --- Home Page Grid --- */
+.home-grid { display: grid; grid-template-columns: 350px 1fr; gap: 2rem; }
+
+.pc-display-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+/* --- PC Card Styles --- */
+.pc-glass-card {
+  background: white;
+  border-radius: 16px;
+  padding: 1.2rem;
+  border: 1px solid #e2e8f0;
+  text-align: center;
+  position: relative;
+  transition: transform 0.2s;
+}
+.pc-glass-card:hover { transform: translateY(-5px); }
+.pc-tag { position: absolute; top: 10px; left: 10px; font-size: 11px; font-weight: 800; color: var(--text-light); }
+
+.pc-glass-card.Available { border-top: 5px solid var(--success); }
+.pc-glass-card.Occupied { border-top: 5px solid var(--danger); }
+.pc-glass-card.Maintenance { border-top: 5px solid var(--text-light); background: #f1f5f9; }
+
+/* --- Circular Timer Styles --- */
+.circular-timer { width: 100px; height: 100px; margin: 10px auto; }
+.circular-chart { display: block; margin: 10px auto; max-width: 100%; max-height: 250px; }
+.circle-bg { fill: none; stroke: #eee; stroke-width: 2.8; }
+.circle { fill: none; stroke-width: 2.8; stroke-linecap: round; transition: stroke-dasharray 0.3s linear; }
+.percentage { fill: #333; font-family: sans-serif; font-size: 0.4rem; text-anchor: middle; font-weight: bold; }
+
+/* --- Form Controls --- */
+.modern-form { display: flex; flex-direction: column; gap: 12px; }
+.modern-form input {
+  padding: 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  outline: none;
+}
+.modern-form button {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* --- Responsive --- */
+@media (max-width: 1024px) {
+  .home-grid { grid-template-columns: 1fr; }
+  .sidebar { width: 80px; }
+  .sidebar span { display: none; }
+  .main-content { margin-left: 80px; width: calc(100% - 80px); }
+}
+
+
+
+
+
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(15, 23, 42, 0.8);
+  display: flex; align-items: center; justify-content: center; z-index: 9999;
+  backdrop-filter: blur(4px);
+}
+.modal-card {
+  background: white; padding: 2.5rem; border-radius: 20px; width: 450px; text-align: center;
+  box-shadow: 0 20px 25px -5px rgba(0,0,0,0.2);
+}
+.modal-actions { display: flex; gap: 15px; margin-top: 25px; }
+.confirm-finish { flex: 1; background: #ef4444; color: white; border: none; padding: 12px; border-radius: 10px; cursor: pointer; font-weight: bold; }
+.cancel-finish { flex: 1; background: #f1f5f9; color: #475569; border: none; padding: 12px; border-radius: 10px; cursor: pointer; }
+
+/* PC Action Buttons */
+.pc-actions { display: flex; gap: 8px; width: 100%; margin-top: 10px; }
+.btn-start { width: 100%; background: #10b981; color: white; border: none; padding: 10px; border-radius: 8px; cursor: pointer; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 5px; }
+.btn-pause { flex: 1; background: #f59e0b; color: white; border: none; padding: 8px; border-radius: 8px; cursor: pointer; font-size: 12px; display: flex; align-items: center; justify-content: center; gap: 4px; }
+.btn-resume { flex: 1; background: #3b82f6; color: white; border: none; padding: 8px; border-radius: 8px; cursor: pointer; font-size: 12px; display: flex; align-items: center; justify-content: center; gap: 4px; }
+.btn-finish { flex: 1; background: #ef4444; color: white; border: none; padding: 8px; border-radius: 8px; cursor: pointer; font-size: 12px; }
+
+/* Detailed Queue */
+.queue-item-detailed {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 12px; background: #f8fafc; border-radius: 10px; margin-bottom: 10px; border-left: 4px solid #3b82f6;
+}
+.q-name { font-weight: bold; color: #1e293b; font-size: 14px; }
+.q-subtext { font-size: 11px; color: #64748b; margin-top: 2px; }
+.q-del-btn { background: none; border: none; color: #94a3b8; cursor: pointer; padding: 5px; }
+.q-del-btn:hover { color: #ef4444; }
+
+
+
+
+.queue-item-detailed {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: white;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.pc-mini-badge {
+  background: #0f172a; /* Dark background */
+  color: #38bdf8;    /* Light blue text */
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-weight: 800;
+  font-size: 12px;
+  min-width: 50px;
+  text-align: center;
+  border: 1px solid #334155;
+}
+
+.q-info {
+  flex: 1;
+}
+
+.q-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+/* Modal styling improvement */
+.modal-overlay {
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(8px); /* Modern blur effect */
+}
